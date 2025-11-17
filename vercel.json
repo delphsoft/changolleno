@@ -1,11 +1,25 @@
 {
-  "version": 2,
   "builds": [
-    { "src": "api/main.py", "use": "@vercel/python" },
-    { "src": "frontend/package.json", "use": "@vercel/static-build", "config": { "distDir": "dist" } }
+    {
+      "src": "api/main.py",
+      "use": "@vercel/python@latest"
+    },
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist",
+        "zeroConfig": false
+      }
+    }
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/main.py" },
     { "src": "/(.*)", "dest": "/frontend/dist/$1" }
-  ]
+  ],
+  "functions": {
+    "api/main.py": {
+      "runtime": "python3.11@latest"
+    }
+  }
 }
